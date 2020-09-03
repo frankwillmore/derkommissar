@@ -1,0 +1,31 @@
+variables:
+# JLSE_IRIS_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 10 -q iris_debug"
+ JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 10 -q yarrow_debug"
+before_script:
+  - echo "before script"
+  - hostname
+test1:
+  stage: test
+  tags:
+    - jlselogin3_shell-01
+  script:
+    - id
+    - hostname
+    - echo "Running on jlselogin3 with setuid shell runner" 
+test2:
+  stage: test
+  tags:
+#    - jlselogin3_batch-XX (-01 for IRIS, -02 for YARROW)
+    - jlselogin3_batch-02
+  script:
+    - echo "Job 2 start"
+    - id
+    - which spack
+    - hostname
+#    - echo "Running on jlselogin3 with setuid batch runner on iris"
+    - echo "Running on jlselogin3 with setuid batch runner on yarrow"
+    - echo "Job 2 end"
+after_script:
+  - echo "after script"
+  - hostname
+  
