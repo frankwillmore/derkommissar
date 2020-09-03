@@ -17,6 +17,7 @@ test2:
   tags:
 #    - jlselogin3_batch-XX (-01 for IRIS, -02 for YARROW)
     - jlselogin3_batch-02
+#    - {iris, yarrow} these tags should work as well
   script:
     - echo "Job 2 start"
     - id
