@@ -19,6 +19,7 @@ generate_spack_ci:
     - spack env activate . 
     - spack ci generate
       --output-file ./.spack-ci.yaml
+    - cat ./.spack-ci.yaml
 
 # Note: CI_PROJECT_DIR is set by gitlab and needed by spack
 run_spack_ci:
