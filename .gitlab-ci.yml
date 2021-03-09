@@ -11,6 +11,7 @@ generate:
     - echo "this is test1 job, running via shell on jlselogin3:"
     - id
     - hostname
+    - echo "fgomez here"
     - which spack 
     - echo "Running on jlselogin3 with setuid shell runner" 
     - echo "done"
