@@ -3,7 +3,7 @@ spack:
   concretization: together
   definitions:
   - use_compiler:
-    - gcc@1.10.2:
+    - '%gcc@10.2.0'
   - enumerated_in_e4s:
     - autoconf@2.69
     - automake@1.16.2
@@ -49,9 +49,7 @@ spack:
     - [$use_compiler]
   packages:
     all:
-#      compiler: [oneapi]
       providers:
-#        mpi: [mpich, intel-oneapi-mpi]
         blas: [openblas]
       permissions:
         read: world
@@ -63,6 +61,7 @@ spack:
         prefix: /usr
       buildable: false
   compilers:
+  
   # A new-ish gcc version, built for x86_64 so it will run on any architecture. 
   # Target is set to x86_64 so it will build other compilers (e.g. oneapi)
   # to run on any architecture.
