@@ -1,34 +1,30 @@
 variables:
- JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
-before_script:
-  - echo "before script"
-  - hostname
-generate:
+  JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
+  SPACK_REPO: /soft/spack
+  SPACK_REF: develop 
+  
+generate_spack_ci:
   stage: build
+  artifacts:
+    paths:
+      - .spack-ci.yaml
   tags:
-    - jlselogin3_shell-01
+    - shell
+    
   script:
-    - echo "this is test1 job, running via shell on jlselogin3:"
     - id
     - hostname
-    - echo "fgomez"
-    - which spack 
-    - echo "Running on jlselogin3 with setuid shell runner" 
-    - echo "done"
-#rebuild:
-#  stage: test
-#  tags:
-##    - jlselogin3_batch-XX (-01 for IRIS, -02 for YARROW)
-#    - jlselogin3_batch-02
-##    - yarrow
-#  script:
-#    - echo "Job 2 start"
-#    - id
-#    - which spack
-#    - hostname
-#    - echo "Running through jlselogin3 with setuid batch runner to yarrow node"
-#    - echo "done"
-#after_script:
-#  - echo "after script"
-#  - hostname
-  
+    - pwd
+    - . ${SPACK_REPO}/share/spack/setup-env.sh
+    - spack env activate . 
+    - spack ci generate
+      --output-file ./.spack-ci.yaml
+
+# Note: CI_PROJECT_DIR is set by gitlab and needed by spack
+run_spack_ci:
+  stage: test
+  trigger:
+    include:
+      - artifact: .spack-ci.yaml
+        job: generate_spack_ci
+    strategy: depend
