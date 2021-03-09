@@ -78,3 +78,27 @@ spack:
       modules: []
       environment: {}
       extra_rpaths: []
+
+  gitlab-ci:
+    mappings:
+    - match: [os=opensuse_leap15]
+      runner-attributes:
+        tags:
+          - yarrow
+        variables:
+          SPACK_REPO: $env:SPACK_REPO
+          SPACK_REF: $env:SPACK_REF
+#          SPACK_SIGNING_KEY: $env:SPACK_SIGNING_KEY 
+          SPACK_GNUPGHOME: /soft/spack-mirror/.gnupg
+        before_script:
+          - pwd
+          - ls
+          - hostname
+          - . /soft/spack/share/spack/setup-env.sh 
+        script:
+          - spack env activate .
+          - spack gpg list
+          - spack -d ci rebuild
+          - cd /soft/spack-mirror && spack buildcache update-index
+  mirrors:
+    spack-mirror: file:///soft/spack-mirror
