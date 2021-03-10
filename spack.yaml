@@ -1,6 +1,7 @@
 spack:
   view: false
-  concretization: together
+#  concretization: together
+  concretization: separately
   definitions:
   - use_compiler:
     - '%gcc@10.2.0'
