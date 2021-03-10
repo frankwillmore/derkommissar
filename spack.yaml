@@ -92,16 +92,20 @@ spack:
 #          SPACK_SIGNING_KEY: $env:SPACK_SIGNING_KEY 
           SPACK_GNUPGHOME: /soft/spack-mirror/.gnupg
         before_script:
+          - echo "begin before in rebuild"
           - pwd
-          - ls
+          - ls -la
           - hostname
           - type module
           - . /soft/spack/share/spack/setup-env.sh 
+          - echo "end before in rebuild"
         script:
+          - echo "begin script in rebuild"
           - type module
           - spack env activate .
           - spack gpg list
           - spack -d ci rebuild
           - cd /soft/spack-mirror && spack buildcache update-index
+          - echo "end script in rebuild"
   mirrors:
     spack-mirror: file:///soft/spack-mirror
