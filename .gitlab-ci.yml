@@ -9,7 +9,9 @@ generate_spack_ci:
     paths:
       - .spack-ci.yaml
   tags:
-    - shell
+# need to use batch runner because shell runners still on login3, which is rhel
+#    - shell
+    - batch
     
   script:
     - id
