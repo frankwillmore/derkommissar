@@ -1,5 +1,6 @@
 variables:
-  JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
+#  JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
+  JLSE_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
   SPACK_REPO: /soft/spack
   SPACK_REF: develop 
   
