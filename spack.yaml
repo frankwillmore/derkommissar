@@ -95,8 +95,10 @@ spack:
           - pwd
           - ls
           - hostname
+          - type module
           - . /soft/spack/share/spack/setup-env.sh 
         script:
+          - type module
           - spack env activate .
           - spack gpg list
           - spack -d ci rebuild
