@@ -1,4 +1,4 @@
-# derkommissar
+# Der Kommissar
 
 Der Kommissar is a spack environment (or set of known good environments) which will provide a set of packages, typically provided via the package manager, but with together concretization and built for the target system. 
 
