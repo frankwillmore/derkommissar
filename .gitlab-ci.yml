@@ -1,0 +1,34 @@
+variables:
+  JLSE_YARROW_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
+  JLSE_SCHEDULER_PARAMETERS: "-A Operations -n 1  -t 30 -q yarrow"
+  SPACK_REPO: /soft/spack
+  SPACK_REF: develop 
+  
+generate_spack_ci:
+  stage: build
+  artifacts:
+    paths:
+      - .spack-ci.yaml
+  tags:
+# need to use batch runner because shell runners still on login3, which is rhel
+#    - shell
+    - batch
+    
+  script:
+    - id
+    - hostname
+    - pwd
+    - . ${SPACK_REPO}/share/spack/setup-env.sh
+    - spack env activate . 
+    - spack ci generate
+      --output-file ./.spack-ci.yaml
+    - cat ./.spack-ci.yaml
+
+# Note: CI_PROJECT_DIR is set by gitlab and needed by spack
+run_spack_ci:
+  stage: test
+  trigger:
+    include:
+      - artifact: .spack-ci.yaml
+        job: generate_spack_ci
+    strategy: depend

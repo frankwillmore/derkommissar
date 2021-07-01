@@ -1,0 +1,3 @@
+system_packages.yaml
+spack.lock
+.spack-env/
