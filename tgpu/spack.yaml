@@ -1,0 +1,92 @@
+spack:
+  view: false
+  concretization: together
+  config:
+    concretizer: clingo
+  definitions:
+  - use_compiler:
+    - '%gcc@7.5.0'
+  - to_build:
+    - curl@7.76.1
+    - libidn2@2.3.0
+    - libunistring@0.9.10
+    - libarchive@3.5.1
+    - lz4@1.9.3
+    - lzo@2.10
+    - nettle@3.4.1
+    - gmp@6.2.1
+    - libuv@1.41.0
+    - rhash@1.3.5
+    - libaec@1.0.2
+    - autoconf@2.70
+    - automake@1.16.2
+    - berkeley-db@18.1.40
+    - binutils@2.33.1+gold+headers+libiberty~nls
+    - boost@1.74.0 cxxstd=17
+    - bzip2@1.0.8
+    - cmake@3.18.4
+    - diffutils@3.7
+    - numactl@2.0.12
+    - elfutils@0.182
+    - expat@2.2.10
+    - gdbm@1.18.1
+    - gettext@0.21
+    - help2man@1.47.11
+    - libbsd@0.10.0
+    - libiconv@1.16
+    - libsigsegv@2.12
+    - libtool@2.4.6
+    - libunwind@1.4.0
+    - libxml2@2.9.10
+    - m4@1.4.18
+    - ncurses@6.2
+    - perl@5.34.0
+    - pkgconf@1.7.3
+    - python@3.8.6
+    - readline@8.0
+    - sqlite@3.33.0
+    - tar@1.32
+    - texinfo@6.5
+    - xz@5.2.5
+    - zlib@1.2.11
+    - hwloc@1.11.13
+    - util-linux-uuid
+    - libffi
+    - json-c
+  - from_external:
+    - openssl@1.1.1k~docs+systemcerts %gcc
+  specs:
+  - matrix:
+    - [$to_build]
+    - [$use_compiler]
+#  [$from_external]
+  - openssl@1.1.1k~docs+systemcerts %gcc
+  packages:
+    all:
+      permissions:
+        read: world
+        write: user
+      target: [x86_64]
+    openssl:
+      externals:
+      - spec: openssl@1.1.1k~docs+systemcerts
+        prefix: /usr
+      buildable: false
+  compilers:
+  
+  # A new-ish gcc version, built for x86_64 so it will run on any architecture. 
+  # Target is set to x86_64 so it will build other compilers (e.g. oneapi)
+  # to run on any architecture.
+  - compiler:
+      spec: gcc@7.5.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: opensuse_leap15
+      target: x86_64
+      modules: []
+      environment: {}
+      extra_rpaths: []
