@@ -1,0 +1,68 @@
+spack:
+  view: false
+  concretization: together
+  config:
+    concretizer: clingo
+  definitions:
+  - use_compiler:
+    - '%gcc@7.5.0'
+  - to_build:
+    - ucx@1.10.1+thread_multiple
+    - cmake@3.20.3
+    - hwloc@2.4.1+cuda
+    - libpciaccess@0.16
+    - libtool@2.4.6
+    - m4@1.4.19
+    - libsigsegv@2.13
+    - pkgconf@1.7.4
+    - util-macros@1.19.1
+    - libxml2@2.9.10
+    - libiconv@1.16
+    - xz@5.2.5
+    - zlib@1.2.11
+    - ncurses@6.2
+    - libevent@2.1.12
+    - numactl@2.0.14
+    - autoconf@2.69
+    - perl@5.26.1
+    - automake@1.16.3
+    - openssh@8.5p1
+    - libedit@3.1-20210216
+    - findutils@4.8.0
+  - from_external:
+    - openssl@1.1.1k~docs+systemcerts %gcc
+  specs:
+  - matrix:
+    - [$use_compiler]
+    - [$to_build]
+#  [$from_external]
+  - openssl@1.1.1k~docs+systemcerts %gcc
+  packages:
+    all:
+      permissions:
+        read: world
+        write: user
+      target: [x86_64]
+    openssl:
+      externals:
+      - spec: openssl@1.1.1k~docs+systemcerts
+        prefix: /usr
+      buildable: false
+  compilers:
+  
+  # A new-ish gcc version, built for x86_64 so it will run on any architecture. 
+  # Target is set to x86_64 so it will build other compilers (e.g. oneapi)
+  # to run on any architecture.
+  - compiler:
+      spec: gcc@7.5.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: /usr/bin/gfortran
+        fc: /usr/bin/gfortran
+      flags: {}
+      operating_system: opensuse_leap15
+      target: x86_64
+      modules: []
+      environment: {}
+      extra_rpaths: []
