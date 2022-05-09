@@ -1,3 +1,7 @@
 system_packages.yaml
 spack.lock
+spack.yaml
 .spack-env/
+opt
+.spack-db
+bin
